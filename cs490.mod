@@ -1,28 +1,22 @@
 using CP;
-{string} Flows = {"f1", "f2", "f3", "f4"};
-{string} Jobs = {"j1", "j2"};
+{string} Flows = ...;
+{string} Jobs = ...;
 // Generate this in Scala, but not dependent on actual data
-int AllowedFlows[Flows][Flows] = [[1, 1, 0, 0],
-                  [1, 1, 0, 0],
-                  [0, 0, 1, 1],
-                  [0, 0, 1, 1]];
+int AllowedFlows[Flows][Flows] = ...;
 
 //int AllowedFlows[Flows][Flows] = [[1, 1, 1, 1],
 //                  [1, 1, 1, 1],
 //                  [1, 1, 1, 1],
 //                  [1, 1, 1, 1]];                  
 
-// change to m -> read from data                  
-range Constraints = 1 .. 5;
+// change to m -> read from data
+int numConstraints = ...;                 
+range Constraints = 1 .. numConstraints;
 
-int A[Constraints][Flows] = [[1, 0, 0, 0], 
-              [0, 1, 0, 0],
-              [0, 0, 1, 0],
-              [0, 0, 0, 1],
-              [0, 0, 1, 1]]; 
+int A[Constraints][Flows] = ... ;
               
 //int C[Constraints] = [5, 10, 7, 10, 9];             
-int C[Constraints] = [5, 10, 7, 10, 14];
+int C[Constraints] = ...;
 
 
 dvar int+ B[Flows]; //flattened

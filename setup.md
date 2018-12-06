@@ -6,3 +6,5 @@ Cplex Server Setup
 - export LD_LIBRARY_PATH=/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/
 - ./opl/bin/x86-64_linux/oplrun should work
 always have to export LD_LIBRARY_PATH=/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux 
+Run model
+./CPLEX_Studio128/opl/bin/x86-64_linux/oplrun cplex-server/cs490.mod
