@@ -8,14 +8,14 @@ from cplex_server.models.parameters import Parameters  # noqa: E501
 from cplex_server import util
 
 # dict: id: {status:status, bimatrix: [], imatrix: []}
-JOBS = {4: {'status': 'processing', 'bimatrix': [7, 8], 'imatrix': [[1, 0],[0, 1], [0, 0], [0,0]]}}
+JOBS = {4: {'status': 'processing', 'bijobmatrix': [7, 8], 'imatrix': [[1, 0],[0, 1], [0, 0], [0,0]]}}
 
 def find_status_by_job_id(jobId):  # noqa: E501
     return JOBS[jobId]['status']
 
 
 def get_bi_job_matrix(jobId):  # noqa: E501
-    return JOBS[jobId]['bimatrix']
+    return JOBS[jobId]['bijobmatrix']
 
 
 def get_i_matrix(jobId):  # noqa: E501
@@ -34,4 +34,5 @@ def submit_job(body):  # noqa: E501
     """
     if connexion.request.is_json:
         body = Parameters.from_dict(connexion.request.get_json())  # noqa: E501
+        
     return 'do some magic!'
