@@ -5,3 +5,4 @@ Cplex Server Setup
 - Install cplex (might have to run export PS1=">" and do installation from that terminal)
 - export LD_LIBRARY_PATH=/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/
 - ./opl/bin/x86-64_linux/oplrun should work
+always have to export LD_LIBRARY_PATH=/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux 
