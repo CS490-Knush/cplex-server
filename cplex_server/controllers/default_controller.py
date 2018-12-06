@@ -7,44 +7,19 @@ from cplex_server.models.job_status import JobStatus  # noqa: E501
 from cplex_server.models.parameters import Parameters  # noqa: E501
 from cplex_server import util
 
+# dict: id: {status:status, bimatrix: [], imatrix: []}
+JOBS = {4: {'status': 'processing', 'bimatrix': [7, 8], 'imatrix': [[1, 0],[0, 1], [0, 0], [0,0]]}}
 
 def find_status_by_job_id(jobId):  # noqa: E501
-    """Finds job status for id
-
-     # noqa: E501
-
-    :param jobId: ID of job to return status for
-    :type jobId: int
-
-    :rtype: JobStatus
-    """
-    return 'do some magic!'
+    return JOBS[jobId]['status']
 
 
 def get_bi_job_matrix(jobId):  # noqa: E501
-    """Returns BIJob matrix for job with id
-
-     # noqa: E501
-
-    :param jobId: ID of job to return status for
-    :type jobId: int
-
-    :rtype: BIJobMatrix
-    """
-    return 'do some magic!'
+    return JOBS[jobId]['bimatrix']
 
 
 def get_i_matrix(jobId):  # noqa: E501
-    """Returns I matrix for job with id
-
-     # noqa: E501
-
-    :param jobId: ID of job to return status for
-    :type jobId: int
-
-    :rtype: IMatrix
-    """
-    return 'do some magic!'
+    return JOBS[jobId]['imatrix']
 
 
 def submit_job(body):  # noqa: E501
