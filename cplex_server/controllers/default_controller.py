@@ -17,9 +17,19 @@ class JobInfo():
 
 
     def __init__(self, id, status, data_file="", output_file=""):
+        self._id = id
         self.status = JobStatus(id, status)
         self.data_file = data_file
         self.output_file = output_file
+
+    def set_status(self, status):
+        self.status = JobStatus(self._id, status)
+
+    def set_output_file(self, output_file):
+        self.output_file = output_file
+
+    def __str__(self):
+        return "Status: %s Data File: %s Output File: %s" % (self.status.status, self.data_file, self.output_file)
 
 JOBS = {4: JobInfo(4, "processing", "cs490.dat", "output.txt")}
 curr_id = 0
