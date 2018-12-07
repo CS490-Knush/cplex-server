@@ -28,7 +28,7 @@ class JobInfo():
     def set_output_file(self, output_file):
         self.output_file = output_file
 
-    def __str__(self):
+    def __repr__(self):
         return "Status: %s Data File: %s Output File: %s" % (self.status.status, self.data_file, self.output_file)
 
 JOBS = {4: JobInfo(4, "processing", "cs490.dat", "output.txt")}
@@ -106,8 +106,8 @@ def run_cplex_job(data_file, id_num):
     except subprocess.CalledProcessError as e:
         raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
     print(id_num)
-    JOBS[id_num].status = "done"
-    JOBS[id_num].output_file = "%d_output_file.txt" % id_num
+    JOBS[id_num].set_status("done")
+    JOBS[id_num].set_output_file("%d_output_file.txt" % id_num)
     print(JOBS)
 
 def return_cplex_loc():
