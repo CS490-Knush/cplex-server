@@ -17,6 +17,7 @@ int A[Constraints][Flows] = ... ;
               
 //int C[Constraints] = [5, 10, 7, 10, 9];             
 int C[Constraints] = ...;
+int JobId = ...; // ID for saving file
 
 
 dvar int+ B[Flows]; //flattened
@@ -70,6 +71,9 @@ subject to {
 //  count(all(f in Flows) I[f], false) == 0;
 }
 execute DISPLAY {
-  writeln("BIJobs = ", BIjobs);
-  writeln("I = ", I);
+  var f=new IloOplOutputFile("output_files/" + JobId + "_output_file.txt");
+  f.writeln("BIJobs");
+  f.writeln(BIjobs);
+  f.writeln("I");
+  f.writeln(I);
 };

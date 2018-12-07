@@ -80,6 +80,7 @@ def write_to_data_file(body):
                [0, 0, 1, 1],
                [0, 0, 1, 1]]
         f.write("AllowedFlows = %s;\n" % str(allowed_flows))
+        f.write("JobId = %s;\n" % curr_id)
 
     JOBS[curr_id] = JobInfo(curr_id, "processing", filename, "")
     print("added to job queue")
