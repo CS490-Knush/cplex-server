@@ -21,12 +21,6 @@ class JobInfo():
         self.data_file = data_file
         self.output_file = output_file
 
-    def set_data_file(self, data_file):
-        self.data_file = data_file
-
-    def set_output_file(self, output_file):
-        self.output_file = output_file
-
 JOBS = {4: JobInfo(4, "processing", "cs490.dat", "output.txt")}
 curr_id = 0
 
@@ -99,6 +93,8 @@ def run_cplex_job(data_file, curr_id):
     except subprocess.CalledProcessError as e:
         raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
     print(s)
+    JOBS[curr_id].status = "done"
+    JOBS[curr_id].data_file = "output_files/%d_output_file.txt" % curr_id
 
 def return_cplex_loc():
     return '/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/oplrun'
