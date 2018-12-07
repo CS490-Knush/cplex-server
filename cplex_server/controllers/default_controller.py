@@ -80,6 +80,13 @@ def write_to_data_file(body):
         f.write("A = %s;\n" % str(body.a))
 
         f.write("C = %s;\n" % str(body.c))
+        
+        allowed_flows = [[1, 1, 0, 0],
+               [1, 1, 0, 0],
+               [0, 0, 1, 1],
+               [0, 0, 1, 1]]
+        f.write("AllowedFlows = %s;\n" % str(allowed_flows))
+
     JOBS[curr_id] = JobInfo(curr_id, "processing", filename, "")
     print("added to job queue")
     p = Process(target=run_cplex_job, args=(filename, curr_id))
@@ -87,7 +94,10 @@ def write_to_data_file(body):
     return curr_id
 
 def run_cplex_job(data_file, curr_id):
-    s = subprocess.check_output([return_cplex_loc(), data_file])
+    try:
+        s = subprocess.check_output([return_cplex_loc(), data_file])
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
     print(s)
 
 def return_cplex_loc():
