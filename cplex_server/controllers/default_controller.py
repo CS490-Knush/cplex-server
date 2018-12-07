@@ -15,7 +15,6 @@ from multiprocessing import Process
 
 class JobInfo():
 
-
     def __init__(self, id, status, data_file="", output_file=""):
         self._id = id
         self.status = JobStatus(id, status)
@@ -67,7 +66,6 @@ def submit_job(body):  # noqa: E501
 def write_to_data_file(body):
     global curr_id
     curr_id += 1
-    global JOBS
     filename = 'data_files/{id}_{date:%Y-%m-%d_%H-%M-%S}.dat'.format(id=curr_id, date=datetime.datetime.now())
     with open(filename, 'w') as f:
         f.write('Flows = {')
@@ -100,7 +98,6 @@ def write_to_data_file(body):
     return curr_id
 
 def run_cplex_job(data_file, id_num):
-    global JOBS
     try:
         s = subprocess.check_output([return_cplex_loc(), return_model_loc(), data_file])
     except subprocess.CalledProcessError as e:
