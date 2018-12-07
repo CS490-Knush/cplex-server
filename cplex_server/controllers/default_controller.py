@@ -88,15 +88,15 @@ def write_to_data_file(body):
     p.start()
     return curr_id
 
-def run_cplex_job(data_file, curr_id):
+def run_cplex_job(data_file, id_num):
     global JOBS
     try:
         s = subprocess.check_output([return_cplex_loc(), return_model_loc(), data_file])
     except subprocess.CalledProcessError as e:
         raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
-    print(s)
-    JOBS[curr_id].status = "done"
-    JOBS[curr_id].output_file = "%d_output_file.txt" % curr_id
+    print(id_num)
+    JOBS[id_num].status = "done"
+    JOBS[id_num].output_file = "%d_output_file.txt" % id_num
 
 def return_cplex_loc():
     return '/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/oplrun'
