@@ -87,13 +87,11 @@ def write_to_data_file(body):
     return curr_id
 
 def run_cplex_job(data_file, curr_id):
-    s = subprocess.check_output([return_cplex_loc(), return_data_file_loc(data_file)])
+    s = subprocess.check_output([return_cplex_loc(), data_file])
     print(s)
 
 def return_cplex_loc():
     return '/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/oplrun'
 
-def return_data_file_loc(data_file):
-    return 'cplex-server/data-files/%s' % data_file
 
 
