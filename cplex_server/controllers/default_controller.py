@@ -9,7 +9,7 @@ from cplex_server.models.i_matrix import IMatrix  # noqa: E501
 from cplex_server.models.job_status import JobStatus  # noqa: E501
 from cplex_server.models.parameters import Parameters  # noqa: E501
 from cplex_server import util
-from multiprocessing import Process
+from multiprocessing import Process, Queue
 
 # dict: id: {status:status, bimatrix: [], imatrix: []}
 
@@ -32,18 +32,27 @@ class JobInfo():
 
 JOBS = {4: JobInfo(4, "processing", "cs490.dat", "output.txt")}
 curr_id = 0
+queue = Queue()
 
 def find_status_by_job_id(jobId):  # noqa: E501
-    print(JOBS)
+    update_jobs()
     return JOBS[jobId].status # get status from job_status model
 
 
 def get_bi_job_matrix(jobId):  # noqa: E501
+    update_jobs()
     return JOBS[jobId].output_file
 
 
 def get_i_matrix(jobId):  # noqa: E501
+    update_jobs()
     return JOBS[jobId]['imatrix']
+
+def update_jobs():
+    while not queue.empty():
+        top_id = queue.get()
+        JOBS[top_id].set_status("done")
+        JOBS[top_id].set_output_file("%d_output_file.txt" % top_id)
 
 
 def submit_job(body):  # noqa: E501
@@ -103,8 +112,7 @@ def run_cplex_job(data_file, id_num):
     except subprocess.CalledProcessError as e:
         raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
     print(id_num)
-    JOBS[id_num] = JobInfo(id_num, "done", data_file, "%d_output_file.txt" % id_num)
-    print(JOBS)
+    queue.put(id_num)
 
 def return_cplex_loc():
     return '/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/oplrun'
