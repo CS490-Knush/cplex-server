@@ -104,6 +104,6 @@ def return_cplex_loc():
     return '/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/oplrun'
 
 def return_model_loc():
-    return 'cplex-server/cs490.mod'
+    return 'cs490.mod'
 
 
