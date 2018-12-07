@@ -25,6 +25,7 @@ JOBS = {4: JobInfo(4, "processing", "cs490.dat", "output.txt")}
 curr_id = 0
 
 def find_status_by_job_id(jobId):  # noqa: E501
+    print(JOBS)
     return JOBS[jobId].status # get status from job_status model
 
 
@@ -97,6 +98,7 @@ def run_cplex_job(data_file, id_num):
     print(id_num)
     JOBS[id_num].status = "done"
     JOBS[id_num].output_file = "%d_output_file.txt" % id_num
+    print(JOBS)
 
 def return_cplex_loc():
     return '/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/oplrun'
