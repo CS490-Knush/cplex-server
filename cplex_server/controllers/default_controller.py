@@ -103,8 +103,7 @@ def run_cplex_job(data_file, id_num):
     except subprocess.CalledProcessError as e:
         raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
     print(id_num)
-    JOBS[id_num].set_status("done")
-    JOBS[id_num].set_output_file("%d_output_file.txt" % id_num)
+    JOBS[id_num] = JobInfo(id_num, "done", data_file, "%d_output_file.txt" % id_num)
     print(JOBS)
 
 def return_cplex_loc():
