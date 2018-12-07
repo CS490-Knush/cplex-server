@@ -71,7 +71,7 @@ subject to {
 //  count(all(f in Flows) I[f], false) == 0;
 }
 execute DISPLAY {
-  var f=new IloOplOutputFile("output_files/" + JobId + "_output_file.txt");
+  var f=new IloOplOutputFile(JobId + "_output_file.txt");
   f.writeln("BIJobs");
   f.writeln(BIjobs);
   f.writeln("I");
