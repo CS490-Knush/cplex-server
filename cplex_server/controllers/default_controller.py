@@ -81,7 +81,7 @@ def write_to_data_file(body):
 
         f.write("C = %s;\n" % str(body.c))
     JOBS[curr_id] = JobInfo(curr_id, "processing", filename, "")
-    print "added to job queue"
+    print("added to job queue")
     p = Process(target=run_cplex_job, args=(filename, curr_id))
     p.start()
     return curr_id
