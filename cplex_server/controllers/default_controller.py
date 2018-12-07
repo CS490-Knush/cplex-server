@@ -55,7 +55,7 @@ def submit_job(body):  # noqa: E501
     if connexion.request.is_json:
         body = Parameters.from_dict(connexion.request.get_json())  # noqa: E501
         new_id = write_to_data_file(body)
-
+        return new_id
 
     return 'do some magic!'
 
@@ -81,6 +81,7 @@ def write_to_data_file(body):
 
         f.write("C = %s;\n" % str(body.c))
     JOBS[curr_id] = JobInfo(curr_id, "processing", filename, "")
+    print "added to job queue"
     p = Process(target=run_cplex_job, args=(filename, curr_id))
     p.start()
     return curr_id
