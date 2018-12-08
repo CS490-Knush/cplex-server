@@ -37,8 +37,10 @@ paths:
         200:
           description: "successful operation"
           schema:
-            type: "integer"
-            description: "The job ID"
+            type: "object"
+            additionalProperties:
+              type: "integer"
+              format: "int32"
         405:
           description: "Invalid input"
       x-swagger-router-controller: "cplex_server.controllers.default_controller"
@@ -111,17 +113,23 @@ definitions:
     required:
     - "A"
     - "C"
-    - "flows"
+    - "destNodes"
     - "jobs"
     - "numConstraints"
+    - "sourceNodes"
     properties:
-      flows:
+      sourceNodes:
         type: "array"
         example:
-        - "m1n1-f1"
-        - "m1n2-f2"
-        - "m2n1-f3"
-        - "m2n2-f4"
+        - "m1"
+        - "m2"
+        items:
+          type: "string"
+      destNodes:
+        type: "array"
+        example:
+        - "n1"
+        - "n2"
         items:
           type: "string"
       jobs:
@@ -172,6 +180,9 @@ definitions:
         items:
           type: "integer"
     example:
+      destNodes:
+      - "n1"
+      - "n2"
       A:
       - - 1
         - 0
@@ -199,11 +210,9 @@ definitions:
       - 2
       - 6
       - 7
-      flows:
-      - "m1n1-f1"
-      - "m1n2-f2"
-      - "m2n1-f3"
-      - "m2n2-f4"
+      sourceNodes:
+      - "m1"
+      - "m2"
       jobs:
       - "j1"
       - "j2"

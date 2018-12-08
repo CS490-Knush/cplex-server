@@ -15,11 +15,13 @@ class Parameters(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, flows: List[str]=None, jobs: List[str]=None, num_constraints: int=None, a: List[List[int]]=None, c: List[int]=None):  # noqa: E501
+    def __init__(self, source_nodes: List[str]=None, dest_nodes: List[str]=None, jobs: List[str]=None, num_constraints: int=None, a: List[List[int]]=None, c: List[int]=None):  # noqa: E501
         """Parameters - a model defined in Swagger
 
-        :param flows: The flows of this Parameters.  # noqa: E501
-        :type flows: List[str]
+        :param source_nodes: The source_nodes of this Parameters.  # noqa: E501
+        :type source_nodes: List[str]
+        :param dest_nodes: The dest_nodes of this Parameters.  # noqa: E501
+        :type dest_nodes: List[str]
         :param jobs: The jobs of this Parameters.  # noqa: E501
         :type jobs: List[str]
         :param num_constraints: The num_constraints of this Parameters.  # noqa: E501
@@ -30,7 +32,8 @@ class Parameters(Model):
         :type c: List[int]
         """
         self.swagger_types = {
-            'flows': List[str],
+            'source_nodes': List[str],
+            'dest_nodes': List[str],
             'jobs': List[str],
             'num_constraints': int,
             'a': List[List[int]],
@@ -38,14 +41,16 @@ class Parameters(Model):
         }
 
         self.attribute_map = {
-            'flows': 'flows',
+            'source_nodes': 'sourceNodes',
+            'dest_nodes': 'destNodes',
             'jobs': 'jobs',
             'num_constraints': 'numConstraints',
             'a': 'A',
             'c': 'C'
         }
 
-        self._flows = flows
+        self._source_nodes = source_nodes
+        self._dest_nodes = dest_nodes
         self._jobs = jobs
         self._num_constraints = num_constraints
         self._a = a
@@ -63,27 +68,50 @@ class Parameters(Model):
         return util.deserialize_model(dikt, cls)
 
     @property
-    def flows(self) -> List[str]:
-        """Gets the flows of this Parameters.
+    def source_nodes(self) -> List[str]:
+        """Gets the source_nodes of this Parameters.
 
 
-        :return: The flows of this Parameters.
+        :return: The source_nodes of this Parameters.
         :rtype: List[str]
         """
-        return self._flows
+        return self._source_nodes
 
-    @flows.setter
-    def flows(self, flows: List[str]):
-        """Sets the flows of this Parameters.
+    @source_nodes.setter
+    def source_nodes(self, source_nodes: List[str]):
+        """Sets the source_nodes of this Parameters.
 
 
-        :param flows: The flows of this Parameters.
-        :type flows: List[str]
+        :param source_nodes: The source_nodes of this Parameters.
+        :type source_nodes: List[str]
         """
-        if flows is None:
-            raise ValueError("Invalid value for `flows`, must not be `None`")  # noqa: E501
+        if source_nodes is None:
+            raise ValueError("Invalid value for `source_nodes`, must not be `None`")  # noqa: E501
 
-        self._flows = flows
+        self._source_nodes = source_nodes
+
+    @property
+    def dest_nodes(self) -> List[str]:
+        """Gets the dest_nodes of this Parameters.
+
+
+        :return: The dest_nodes of this Parameters.
+        :rtype: List[str]
+        """
+        return self._dest_nodes
+
+    @dest_nodes.setter
+    def dest_nodes(self, dest_nodes: List[str]):
+        """Sets the dest_nodes of this Parameters.
+
+
+        :param dest_nodes: The dest_nodes of this Parameters.
+        :type dest_nodes: List[str]
+        """
+        if dest_nodes is None:
+            raise ValueError("Invalid value for `dest_nodes`, must not be `None`")  # noqa: E501
+
+        self._dest_nodes = dest_nodes
 
     @property
     def jobs(self) -> List[str]:

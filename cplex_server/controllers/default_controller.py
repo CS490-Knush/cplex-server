@@ -10,6 +10,7 @@ from cplex_server.models.job_status import JobStatus  # noqa: E501
 from cplex_server.models.parameters import Parameters  # noqa: E501
 from cplex_server import util
 from multiprocessing import Process, Queue
+from cplex_server.controllers.allowed_flows import get_flows, get_allowed_flows
 
 # dict: id: {status:status, bimatrix: [], imatrix: []}
 
@@ -76,9 +77,10 @@ def write_to_data_file(body):
     global curr_id
     curr_id += 1
     filename = 'data_files/{id}_{date:%Y-%m-%d_%H-%M-%S}.dat'.format(id=curr_id, date=datetime.datetime.now())
+    flows = get_flows(body.source_nodes, body.dest_nodes)
     with open(filename, 'w') as f:
         f.write('Flows = {')
-        for flow in body.flows:
+        for flow in flows:
             f.write('"%s",' % flow)
         f.write("};\n")
 
@@ -93,10 +95,7 @@ def write_to_data_file(body):
 
         f.write("C = %s;\n" % str(body.c))
         
-        allowed_flows = [[1, 1, 0, 0],
-               [1, 1, 0, 0],
-               [0, 0, 1, 1],
-               [0, 0, 1, 1]]
+        allowed_flows = get_allowed_flows(flows)
         f.write("AllowedFlows = %s;\n" % str(allowed_flows))
         f.write("JobId = %s;\n" % curr_id)
 
