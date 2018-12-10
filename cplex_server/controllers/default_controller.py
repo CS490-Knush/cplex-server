@@ -51,11 +51,27 @@ def parse_bi_job_matrix(filename):
         sp = line.split()
         sp[0] = sp[0][1:]
         sp[-1] = sp[-1][:1]
-        return json.dumps(sp)
+        return [int(i) for i in sp]
 
 def get_i_matrix(jobId):  # noqa: E501
     update_jobs()
-    return JOBS[jobId]['imatrix']
+    return parse_i_matrix(JOBS[jobId].output_file)
+
+def parse_i_matrix(filename):
+    with open(filename) as f:
+        line = f.readline() # BIJobs
+        line = f.readline() # BIJobs matrix
+        line = f.readline() # I line
+        arr = []
+        for line in f:
+            arr.append(f.readline().strip())
+        arr[0][0] = arr[0][0][1:]
+        arr[-1][-1] = arr[-1][-1][:1]
+
+        for a in arr:
+            a[0] = a[0][1:]
+            a[-1] = a[-1][:1]
+        return [[int(i) for b in a] for a in arr]
 
 def update_jobs():
     while not queue.empty():
@@ -78,8 +94,6 @@ def submit_job(body):  # noqa: E501
         body = Parameters.from_dict(connexion.request.get_json())  # noqa: E501
         new_id = write_to_data_file(body)
         return new_id
-
-    return 'do some magic!'
 
 def write_to_data_file(body):
     global curr_id
