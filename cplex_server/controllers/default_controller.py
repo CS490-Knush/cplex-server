@@ -66,7 +66,7 @@ def parse_i_matrix(filename):
         for line in f:
             if line.strip():
                 print(line.strip())
-                arr.append(line.strip())
+                arr.append(line.strip().split())
         arr[0][0] = arr[0][0][1:]
         arr[-1][-1] = arr[-1][-1][:1]
 
