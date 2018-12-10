@@ -42,14 +42,16 @@ def find_status_by_job_id(jobId):  # noqa: E501
 
 def get_bi_job_matrix(jobId):  # noqa: E501
     update_jobs()
-    parse_bi_job_matrix(JOBS[jobId].output_file)
-    return JOBS[jobId].output_file
+    return parse_bi_job_matrix(JOBS[jobId].output_file)
 
 def parse_bi_job_matrix(filename):
     with open(filename) as f:
         line = f.readline()
         line = f.readline()
-        return line.split()
+        sp = line.split()
+        sp[0] = sp[0][1:]
+        sp[-1] = sp[-1][:1]
+        return json.dumps(sp)
 
 def get_i_matrix(jobId):  # noqa: E501
     update_jobs()
