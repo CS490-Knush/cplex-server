@@ -65,7 +65,6 @@ def parse_i_matrix(filename):
         arr = []
         for line in f:
             if line.strip():
-                print(line.strip())
                 arr.append(line.strip().split())
         arr[0][0] = arr[0][0][1:]
         arr[-1][-1] = arr[-1][-1][:1]
@@ -73,7 +72,7 @@ def parse_i_matrix(filename):
         for a in arr:
             a[0] = a[0][1:]
             a[-1] = a[-1][:1]
-        return [[int(i) for b in a] for a in arr]
+        return [[int(i) for i in a] for a in arr]
 
 def update_jobs():
     while not queue.empty():
