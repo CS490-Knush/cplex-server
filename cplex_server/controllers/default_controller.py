@@ -50,7 +50,7 @@ def parse_bi_job_matrix(filename):
         line = f.readline()
         sp = line.split()
         sp[0] = sp[0][1:]
-        sp[-1] = sp[-1][:1]
+        sp[-1] = sp[-1][:-1]
         return [int(i) for i in sp]
 
 def get_i_matrix(jobId):  # noqa: E501
@@ -67,7 +67,7 @@ def parse_i_matrix(filename):
             if line.strip():
                 arr.append(line.strip().split())
         arr[0][0] = arr[0][0][1:]
-        arr[-1][-1] = arr[-1][-1][:1]
+        arr[-1][-1] = arr[-1][-1][:-1]
 
         for a in arr:
             a[0] = a[0][1:]
