@@ -3,22 +3,13 @@ using CP;
 {string} Jobs = ...;
 // Generate this in Scala, but not dependent on actual data
 int AllowedFlows[Flows][Flows] = ...;
-
-//int AllowedFlows[Flows][Flows] = [[1, 1, 1, 1],
-//                  [1, 1, 1, 1],
-//                  [1, 1, 1, 1],
-//                  [1, 1, 1, 1]];                  
-
 // change to m -> read from data
 int numConstraints = ...;                 
 range Constraints = 1 .. numConstraints;
 
-int A[Constraints][Flows] = ... ;
-              
-//int C[Constraints] = [5, 10, 7, 10, 9];             
+int A[Constraints][Flows] = ... ;           
 int C[Constraints] = ...;
 int JobId = ...; // ID for saving file
-
 
 dvar int+ B[Flows]; //flattened
 dvar boolean I[Flows][Jobs];
@@ -53,27 +44,18 @@ subject to {
     sum (f in Flows) I[f][j] == 1;
     
   
-  forall(j in Jobs)
-    forall(f in Flows)
+  forall(f in Flows)
+    forall(j in Jobs)
       (I[f][j]==1) => (BIjobs[j]==BI[f]);
       
   forall(f in Flows)
       forall(f2 in Flows)
         ctFlows:
         Iflat[f] * Iflat[f2] <= AllowedFlows[f][f2];
-//      
-
-//  forall(j in Jobs)
-//      forall(f in Flows)
-//      (BI[f] != 0) => (BIjobs[j]=>)
-//      
-
-//  count(all(f in Flows) I[f], false) == 0;
 }
+
 execute DISPLAY {
-  var f=new IloOplOutputFile(JobId + "_output_file.txt");
-  f.writeln("BIJobs");
-  f.writeln(BIjobs);
+  var f=new IloOplOutputFile(JobId + "_layer1_output.txt");
   f.writeln("I");
   f.writeln(I);
 };
