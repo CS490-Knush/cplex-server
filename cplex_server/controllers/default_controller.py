@@ -133,7 +133,7 @@ def run_cplex_job(data_file, id_num):
         s = subprocess.check_output([return_cplex_loc(), return_model_loc(), data_file])
     except subprocess.CalledProcessError as e:
         raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
-    print(id_num)
+    print("completed layer1 for job", id_num)
     queue.put(id_num)
 
 def return_cplex_loc():
