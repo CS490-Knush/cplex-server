@@ -1,6 +1,6 @@
 def get_flows(source_nodes, dest_nodes):
     flows = []
-    flow_index = 1
+    flow_index = 0
     for src in source_nodes:
         for dest in dest_nodes:
             flows.append(Flow(src, dest, flow_index))
