@@ -133,21 +133,28 @@ def write_to_data_file(body):
     return curr_id
 
 def prep_layer2(data_file, id_num):
-    with open(data_file, 'a') as f:
-        f.write('BlahBlah')
+    I = []
 
     with open(str(id_num) + "_layer1_output.txt") as f:
-        for line in f:
-            print(line)
-        #     if line.strip():
-        #         arr.append(line.strip().split())
-        # arr[0][0] = arr[0][0][1:]
-        # arr[-1][-1] = arr[-1][-1][:-1]
+        line = f.readline()  # I line
 
-        # for a in arr:
-        #     a[0] = a[0][1:]
-        #     a[-1] = a[-1][:1]
-        # return [[int(i) for i in a] for a in arr]
+        arr = []
+        for line in f:
+            if line.strip():
+                arr.append(line.strip().split())
+        arr[0][0] = arr[0][0][1:]
+        arr[-1][-1] = arr[-1][-1][:-1]
+
+        for a in arr:
+            a[0] = a[0][1:]
+            a[-1] = a[-1][:1]
+        I = [[int(i) for i in a] for a in arr]
+
+
+    with open(data_file, 'a') as f:
+        f.write('BlahBlah')
+        f.write(I)
+
 
 def run_cplex_job(data_file, id_num):
     try:
