@@ -60,5 +60,11 @@ docs/_build/
 # PyBuilder
 target/
 
+
 #Ipython Notebook
 .ipynb_checkpoints
+
+# data files
+data_files/
+*_output_file.txt
+
