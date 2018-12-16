@@ -149,11 +149,10 @@ def prep_layer2(data_file, id_num):
             a[0] = a[0][1:]
             a[-1] = a[-1][:1]
         I = [[int(i) for i in a] for a in arr]
-        print("I", I)
+        print("I: ", I)
 
     with open(data_file, 'a') as f:
-        f.write('BlahBlah')
-        f.write(str(I))
+        f.write("I = %s;\n" % str(I))
 
 
 def run_cplex_job(data_file, id_num):
@@ -164,14 +163,25 @@ def run_cplex_job(data_file, id_num):
     print("completed layer1 for job", id_num)
     prep_layer2(data_file, id_num)
 
-
+    try:
+        s = subprocess.check_output([return_cplex_loc(), return_layer2_model_loc(), data_file])
+    except subprocess.CalledProcessError as e:
+        raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
+    print("completed layer2 for job", id_num)
 
     queue.put(id_num)
+
+
+
 
 def return_cplex_loc():
     return '/home/anushreeagrawal/CPLEX_Studio128/opl/bin/x86-64_linux/oplrun'
 
 def return_model_loc():
     return 'cs490.mod'
+
+def return_layer2_model_loc():
+    return 'cs490_layer2.mod'
+
 
 
