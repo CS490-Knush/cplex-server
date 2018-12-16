@@ -149,11 +149,11 @@ def prep_layer2(data_file, id_num):
             a[0] = a[0][1:]
             a[-1] = a[-1][:1]
         I = [[int(i) for i in a] for a in arr]
-
+        print("I", I)
 
     with open(data_file, 'a') as f:
         f.write('BlahBlah')
-        f.write(I)
+        f.write(str(I))
 
 
 def run_cplex_job(data_file, id_num):
