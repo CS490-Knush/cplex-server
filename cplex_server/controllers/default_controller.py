@@ -53,15 +53,17 @@ def parse_bi_job_matrix(filename):
         sp[-1] = sp[-1][:-1]
         return [int(i) for i in sp]
 
+
 def get_i_matrix(jobId):  # noqa: E501
     update_jobs()
     return parse_i_matrix(JOBS[jobId].output_file)
 
+
 def parse_i_matrix(filename):
     with open(filename) as f:
-        line = f.readline() # BIJobs
-        line = f.readline() # BIJobs matrix
-        line = f.readline() # I line
+        line = f.readline()  # BIJobs
+        line = f.readline()  # BIJobs matrix
+        line = f.readline()  # I line
         arr = []
         for line in f:
             if line.strip():
@@ -73,6 +75,7 @@ def parse_i_matrix(filename):
             a[0] = a[0][1:]
             a[-1] = a[-1][:1]
         return [[int(i) for i in a] for a in arr]
+
 
 def update_jobs():
     while not queue.empty():
@@ -95,6 +98,7 @@ def submit_job(body):  # noqa: E501
         body = Parameters.from_dict(connexion.request.get_json())  # noqa: E501
         new_id = write_to_data_file(body)
         return new_id
+
 
 def write_to_data_file(body):
     global curr_id
@@ -128,12 +132,33 @@ def write_to_data_file(body):
     p.start()
     return curr_id
 
+def prep_layer2(data_file):
+    with open('data_file', 'a') as f:
+        f.write('BlahBlah')
+
+    with open(str(id_num) + "_layer1_output.txt") as f:
+        for line in f:
+            print(line)
+        #     if line.strip():
+        #         arr.append(line.strip().split())
+        # arr[0][0] = arr[0][0][1:]
+        # arr[-1][-1] = arr[-1][-1][:-1]
+
+        # for a in arr:
+        #     a[0] = a[0][1:]
+        #     a[-1] = a[-1][:1]
+        # return [[int(i) for i in a] for a in arr]
+
 def run_cplex_job(data_file, id_num):
     try:
         s = subprocess.check_output([return_cplex_loc(), return_model_loc(), data_file])
     except subprocess.CalledProcessError as e:
         raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
     print("completed layer1 for job", id_num)
+    prep_layer2(data_file, id_num)
+
+
+
     queue.put(id_num)
 
 def return_cplex_loc():
