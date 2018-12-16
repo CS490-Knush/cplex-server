@@ -50,6 +50,8 @@ def get_bi_job_matrix(jobId):  # noqa: E501
 def parse_bi_matrix(filename):
     with open(filename) as f:
         line = f.readline() # BI line
+        line = f.readline()
+        line = line.strip()
         sp = line.split()
         sp[0] = sp[0][1:]
         sp[-1] = sp[-1][:-1]
