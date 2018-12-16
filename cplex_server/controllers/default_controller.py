@@ -132,8 +132,8 @@ def write_to_data_file(body):
     p.start()
     return curr_id
 
-def prep_layer2(data_file):
-    with open('data_file', 'a') as f:
+def prep_layer2(data_file, id_num):
+    with open(data_file, 'a') as f:
         f.write('BlahBlah')
 
     with open(str(id_num) + "_layer1_output.txt") as f:
