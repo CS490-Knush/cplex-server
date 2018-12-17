@@ -148,11 +148,15 @@ def write_to_data_file(body):
 
     JOBS[curr_id] = JobInfo(curr_id, "processing", filename, "")
     print("added to job queue")
-    p = Process(target=run_cplex_job, args=(filename, curr_id))
+    if body.flag is None:
+        flag = False
+    else:
+        flag = body.flag
+    p = Process(target=run_cplex_job, args=(filename, curr_id, flag))
     p.start()
     return curr_id
 
-def prep_layer2(data_file, id_num):
+def prep_layer2(data_file, id_num, flag):
     I = []
 
     with open(str(id_num) + "_layer1_output_file.txt") as f:
@@ -170,18 +174,27 @@ def prep_layer2(data_file, id_num):
             a[-1] = a[-1][:1]
         I = [[int(i) for i in a] for a in arr]
         print("I: ", I)
+        if flag:
+            one = I[1]
+            I[1] = I[0]
+            I[0] = one
+
+            two = I[2]
+            I[2] = I[3]
+            I[3] = two
+            print("I with Flag: ", I)
 
     with open(data_file, 'a') as f:
         f.write("I = %s;\n" % str(I))
 
 
-def run_cplex_job(data_file, id_num):
+def run_cplex_job(data_file, id_num, flag):
     try:
         s = subprocess.check_output([return_cplex_loc(), return_model_loc(), data_file])
     except subprocess.CalledProcessError as e:
         raise RuntimeError("command '{}' return with error (code {}): {}".format(e.cmd, e.returncode, e.output))
     print("completed layer1 for job", id_num)
-    prep_layer2(data_file, id_num)
+    prep_layer2(data_file, id_num, flag)
 
     try:
         s = subprocess.check_output([return_cplex_loc(), return_layer2_model_loc(), data_file])
