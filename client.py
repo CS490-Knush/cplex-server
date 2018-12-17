@@ -35,6 +35,7 @@ def request_generator(num_m, num_n):
             "numConstraints": 5,
             "A": A,
             "C": C}
+    print(data)
     send_request(num_flows, num_flows, data)
 
 def send_request(computation_nodes, storage_nodes, cplex_request):
@@ -52,7 +53,6 @@ def send_request(computation_nodes, storage_nodes, cplex_request):
             print("error getting job status...")
             return
         if r.json()['status'] != 'done':
-            print("Job is not done")
             time.sleep(1)
             continue
         bimatrix_req = requests.get('http://localhost:8080/cpsc490/cplex_server/1.0.0/bijobmatrix/%d' % job_code)
