@@ -155,7 +155,7 @@ def write_to_data_file(body):
 def prep_layer2(data_file, id_num):
     I = []
 
-    with open(str(id_num) + "_layer1_output.txt") as f:
+    with open(str(id_num) + "_layer1_output_file.txt") as f:
         line = f.readline()  # I line
 
         arr = []
