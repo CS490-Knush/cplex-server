@@ -36,7 +36,7 @@ def request_generator(num_m, num_n):
             "A": A,
             "C": C}
     print(data)
-    send_request(num_flows, num_flows, data)
+    send_request(num_m, num_n, data)
 
 def send_request(computation_nodes, storage_nodes, cplex_request):
     start_time = time.time()
