@@ -12,7 +12,7 @@ def request_generator(num_m, num_n):
         sourceNodes.append("m%d" % i)
     for i in range(num_n):
         destNodes.append("n%d" % i)
-    for i in range(num_n + num_m):
+    for i in range(min(num_n, num_m)):
         jobs.append("j%d" % i)
     num_flows = num_m + num_n
     A1 = [1]
