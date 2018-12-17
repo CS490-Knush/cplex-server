@@ -68,8 +68,8 @@ def main():
     filename = sys.argv[1]
     with open(filename, 'a') as f:
         f.write("Computation Nodes,Storage Nodes,Time\n")
-    for i in range(2, 6):
-        for b in range(2, 6):
+    for i in range(2, 30, 5):
+        for b in range(2, 30, 5):
             request_generator(i, b)
 
 if __name__ == "__main__":
