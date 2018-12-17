@@ -55,11 +55,9 @@ def send_request(computation_nodes, storage_nodes, cplex_request):
         if r.json()['status'] != 'done':
             time.sleep(1)
             continue
-        bimatrix_req = requests.get('http://localhost:8080/cpsc490/cplex_server/1.0.0/bijobmatrix/%d' % job_code)
-        if bimatrix_req.status_code == 200:
-            end_time = time.time()
-            write_to_csv(computation_nodes, storage_nodes, end_time-start_time)
-            bimatrix = 'Bla'
+        end_time = time.time()
+        write_to_csv(computation_nodes, storage_nodes, end_time-start_time)
+        bimatrix = 'Bla'
 
 def write_to_csv(computation_nodes, storage_nodes, time):
     filename = sys.argv[1]
