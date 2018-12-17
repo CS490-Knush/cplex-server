@@ -118,6 +118,8 @@ definitions:
     - "numConstraints"
     - "sourceNodes"
     properties:
+      flag:
+        type: "boolean"
       sourceNodes:
         type: "array"
         example:
@@ -204,6 +206,7 @@ definitions:
         - 0
         - 1
         - 1
+      flag: true
       C:
       - 4
       - 5

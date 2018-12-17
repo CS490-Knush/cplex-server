@@ -15,9 +15,11 @@ class Parameters(Model):
     Do not edit the class manually.
     """
 
-    def __init__(self, source_nodes: List[str]=None, dest_nodes: List[str]=None, jobs: List[str]=None, num_constraints: int=None, a: List[List[int]]=None, c: List[int]=None):  # noqa: E501
+    def __init__(self, flag: bool=None, source_nodes: List[str]=None, dest_nodes: List[str]=None, jobs: List[str]=None, num_constraints: int=None, a: List[List[int]]=None, c: List[int]=None):  # noqa: E501
         """Parameters - a model defined in Swagger
 
+        :param flag: The flag of this Parameters.  # noqa: E501
+        :type flag: bool
         :param source_nodes: The source_nodes of this Parameters.  # noqa: E501
         :type source_nodes: List[str]
         :param dest_nodes: The dest_nodes of this Parameters.  # noqa: E501
@@ -32,6 +34,7 @@ class Parameters(Model):
         :type c: List[int]
         """
         self.swagger_types = {
+            'flag': bool,
             'source_nodes': List[str],
             'dest_nodes': List[str],
             'jobs': List[str],
@@ -41,6 +44,7 @@ class Parameters(Model):
         }
 
         self.attribute_map = {
+            'flag': 'flag',
             'source_nodes': 'sourceNodes',
             'dest_nodes': 'destNodes',
             'jobs': 'jobs',
@@ -49,6 +53,7 @@ class Parameters(Model):
             'c': 'C'
         }
 
+        self._flag = flag
         self._source_nodes = source_nodes
         self._dest_nodes = dest_nodes
         self._jobs = jobs
@@ -66,6 +71,27 @@ class Parameters(Model):
         :rtype: Parameters
         """
         return util.deserialize_model(dikt, cls)
+
+    @property
+    def flag(self) -> bool:
+        """Gets the flag of this Parameters.
+
+
+        :return: The flag of this Parameters.
+        :rtype: bool
+        """
+        return self._flag
+
+    @flag.setter
+    def flag(self, flag: bool):
+        """Sets the flag of this Parameters.
+
+
+        :param flag: The flag of this Parameters.
+        :type flag: bool
+        """
+
+        self._flag = flag
 
     @property
     def source_nodes(self) -> List[str]:
